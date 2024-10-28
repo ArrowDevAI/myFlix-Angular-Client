@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-registration-form',
@@ -25,6 +26,7 @@ export class UserRegistrationFormComponent implements OnInit {
 @Input() userData = {Username: '', Password: '', Email: '', Birthday: ''}
 
 constructor(
+   private router: Router,
   public fetchApiData: UserRegistrationService,
   public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
   public snackBar: MatSnackBar) {}

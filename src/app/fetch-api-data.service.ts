@@ -6,6 +6,9 @@ import { map } from 'rxjs/operators';
 
 const apiUrl = 'https://movieurl-6be02303c42f.herokuapp.com/'
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
+};
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +18,8 @@ export class UserRegistrationService {
   constructor(private http: HttpClient) { }
 
   public userRegistration(userDetails: any): Observable<any> {
-    console.log(userDetails);
-    return this.http.post(apiUrl + 'users', userDetails).pipe(
+    console.log("user Details", userDetails, apiUrl)
+    return this.http.post(apiUrl + 'users', userDetails, httpOptions).pipe(
       catchError(this.handleError)
     );
   }
@@ -24,7 +27,8 @@ export class UserRegistrationService {
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
-    } else {
+    } 
+  else {
       console.error(
         `Error Status code ${error.status}, ` +
         `Error body is: ${error.error}`);
@@ -38,10 +42,11 @@ export class UserRegistrationService {
   providedIn: 'root'
 })
 
-export class userLoginService {
+export class UserLoginService {
   constructor(private http: HttpClient) { }
 
   public userLogin(credentials: any): Observable<any> {
+    console.log("Login credentials", credentials, httpOptions)
     return this.http.post(apiUrl + 'login', credentials).pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse): any {
