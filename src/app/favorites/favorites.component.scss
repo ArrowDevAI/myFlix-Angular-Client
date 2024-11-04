@@ -1,0 +1,56 @@
+
+  
+.dialog-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .no-movies-message {
+    text-align: center;
+    font-size: 1rem;
+    color: gray;
+  }
+  
+  .favorite-movie-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; 
+    padding: 10px;
+  }
+  
+  .favorite-movie-card {
+    width: 240px; /* 3/4 of 300px for a uniform layout */
+    height: 337.5px; /* 3/4 of 450px for consistent height */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+  }
+  
+  .favorite-movie-card img {
+    width: 100%; /* Makes image fit card width */
+    height: 187.5px; /* 3/4 of 250px */
+    object-fit: cover; /* Maintains image aspect ratio */
+    margin-bottom: 8px;
+  }
+  /* In your component's CSS file or global styles */
+.padded-title {
+    padding-top: 1px; /* Add 10px padding to the top */
+  }
+  .icon-margin {
+    transition: transform 0.2s ease, color 0.2s ease; 
+    transform: scale(.8);
+}
+
+.icon-margin:hover {
+    color: rgb(255, 0, 0); /* Changes the icon color to red on hover */
+}
+
+.icon-margin:active {
+    transform: scale(1.2); /* Enlarge the icon on click */
+}
+
+  
+  

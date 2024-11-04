@@ -1,0 +1,30 @@
+<div class="form-container">
+    <div class="user-image-container">
+      <img [src]="user.Img" alt="User Image" class="user-image" />
+    </div>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="userDetails.Username" placeholder="{{user.Username}}"> 
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Birthday</mat-label>
+        <input matInput [(ngModel)]="userDetails.Birthday" type="date" placeholder="{{user.Birthday}}">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="userDetails.Email" type="email" placeholder="{{user.Email}}">
+      </mat-form-field>
+    </p>
+    <mat-dialog-actions>
+      <button mat-raised-button color="primary" (click)="saveChanges()">Save</button> 
+      <button mat-raised-button color="warn" (click)="handleCancel()">Cancel</button>
+    </mat-dialog-actions>
+  </div>
+  
+
+<!-- <button (click)="handleDeregister()"> Deregister</button> -->

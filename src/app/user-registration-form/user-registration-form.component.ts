@@ -1,12 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { UserRegistrationService } from '../fetch-api-data.service';
-import {MatCardModule } from '@angular/material/card';
+import { AuthHttpService, AuthService, UserRegistrationService } from '../fetch-api-data.service';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { UserLoginFormComponent } from '../user-login-form/user-login-form.component';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-registration-form',
@@ -14,34 +20,54 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-registration-form.component.scss'],
   standalone: true,
   imports: [
-  MatInputModule,
-  MatCardModule,
-  MatFormFieldModule,
-  FormsModule, 
-  MatDialogModule,
+    MatIconModule,
+    MatCardModule,
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+
   ],
+  providers: [DatePipe]
 })
 export class UserRegistrationFormComponent implements OnInit {
 
-@Input() userData = {Username: '', Password: '', Email: '', Birthday: ''}
+  @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' }
 
-constructor(
-   private router: Router,
-  public fetchApiData: UserRegistrationService,
-  public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
-  public snackBar: MatSnackBar) {}
+  constructor( 
+
+    private router: Router,
+    private datePipe : DatePipe,
+    public fetchApiData: UserRegistrationService,
+    public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-  }  
+  }
 
-  registerUser() : void {
-    this.fetchApiData.userRegistration (this.userData).subscribe((result)=>{
-      console.log("REGISTERED USER", result)
-      this.dialogRef.close();
-      this.snackBar.open('User Registration Successful', 'OK', {
-        duration: 2000
-      });
-    });
-    }
+  registerUser(): void {
+    // const formattedDate = this.datePipe.transform(this.userData.Birthday, 'MM/dd/yyyy')
+    // const userData = {
+    //   ...this.userData,
+    //   Birthday: formattedDate
+    // };
+    
+    // console.log("User Data with updated Birthdy: ", userData)
 
+    this.fetchApiData.userRegistration(this.userData).subscribe({
+      next: (result) => {
+        console.log(result)
+        this.snackBar.open(result.message, 'OK', { duration: 8000 });
+        this.dialogRef.close();
+        this.router.navigate(['welcome']);
+      },
+      error: (error) => {
+        const errorMessage = error.message || 'An error occurred. Please try again.';
+        this.snackBar.open(errorMessage, 'OK', { duration: 8000 });
+      }
+
+    })
+  }
 }

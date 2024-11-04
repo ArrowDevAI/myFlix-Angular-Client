@@ -1,0 +1,14 @@
+.user-image {
+    width: 150px; /* Set width to 50 pixels */
+    height: 150px; /* Set height to 50 pixels */
+    border-radius: 50%; /* Optional: Makes the image circular */
+    object-fit: cover; /* Maintains the aspect ratio of the image */
+}
+.form-container {
+    display: flex;                /* Enables flexbox */
+    flex-direction: column;      /* Aligns children vertically */
+    align-items: center;         /* Centers items horizontally */
+    justify-content: center;      /* Centers items vertically */
+    text-align: center;          /* Centers text within the items */
+    padding: 20px;               /* Optional: Add some padding around the container */
+}

@@ -1,0 +1,18 @@
+<mat-toolbar>
+  <mat-toolbar-row class="toolbar-row">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>home</mat-icon>
+    </button>
+    <span 
+    (click)="openProfileDialog()" class="link">Profile</span>
+    <span (click)="favoritesDialog()" class="link">Favorites</span>
+    <span class="spacer"></span>
+    <span>Hello, {{user.Username}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="main-content">
+
+    <app-movie-card></app-movie-card>
+    
+  </div>

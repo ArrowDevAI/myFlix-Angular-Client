@@ -1,0 +1,17 @@
+.toolbar-row {
+    display: flex;/* Distributes space evenly */
+    gap: 20px; /* Adjust this to control distance between items */
+  }
+  
+  .spacer {
+    flex: 1 1 auto; /* Ensures spacer fills available space */
+  }
+  
+  .link {
+    cursor: pointer;
+  }
+  .mat-dialog-container {
+    max-height: 90vh;  /* Adjusts to 90% of viewport height */
+    height: 80vh;      /* Sets initial height as 80% of viewport */
+  }
+  

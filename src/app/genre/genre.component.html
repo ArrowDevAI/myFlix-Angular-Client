@@ -1,0 +1,10 @@
+<div class="dialog-container">
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <p><strong>Genre:</strong> {{ data.genre.Name }}</p>
+  <p><strong>Description</strong> {{data.genre.Description}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary"  (click)="onClose()">Close</button>
+</div>
+</div>

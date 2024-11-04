@@ -1,0 +1,39 @@
+.movie-card {
+    width: 300px; /* Fixed width for uniform layout */
+    height: 450px; /* Fixed height to avoid varying card sizes */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; /* Centers content horizontally within the card */
+    text-align: center; /* Centers text elements inside the card */
+  }
+  
+  .movie-card img {
+    width: 100%; /* Ensures image fits card width */
+    height: 250px; /* Fixed height for consistent image size */
+    object-fit: cover; /* Crops image to fit within specified dimensions */
+    margin-bottom: 16px;
+  }
+  
+  .movie-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px; /* Space between cards */
+    padding: 50px;
+    justify-content: center; /* Centers the cards as a group on the screen */
+  }
+  .icon-margin {
+    margin-left: 10px; /* Adjust the margin as needed */
+    transition: transform 0.2s ease, color 0.2s ease; /* Smooth transition for transform and color */
+}
+
+.icon-margin:hover {
+    color: red; /* Changes the icon color to red on hover */
+}
+
+.icon-margin:active {
+    transform: scale(1.2); /* Enlarge the icon on click */
+}
+
+  
