@@ -2,7 +2,6 @@
   "routes": [
     "/login",
     "/main",
-    "/movies",
     "/registration",
     "/welcome"
   ]
