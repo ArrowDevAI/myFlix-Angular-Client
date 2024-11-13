@@ -1,8 +1,0 @@
-{
-  "routes": [
-    "/login",
-    "/main",
-    "/registration",
-    "/welcome"
-  ]
-}
