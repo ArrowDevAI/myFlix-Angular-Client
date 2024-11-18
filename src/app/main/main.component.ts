@@ -12,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../fetch-api-data.service';
 import { FavoritesComponent } from '../favorites/favorites.component';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
-import { profile } from 'console';
 import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
@@ -66,7 +65,7 @@ this.dialog.open(ProfileComponent),
     favoritesDialog(): void {
       this.dialog.open(FavoritesComponent, {
         width: '80%',
-        height: '80%'    // Should now apply thanks to CSS override
+        height: '80%'   
       });
     }
     

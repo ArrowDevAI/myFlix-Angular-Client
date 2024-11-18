@@ -45,7 +45,7 @@ getUser(): any {
   }
   setUser(user: any): void {
     if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.setItem('user', JSON.stringify(user)); // Store the entire user object as a JSON string
+      localStorage.setItem('user', JSON.stringify(user));
     }
   }
 
@@ -59,25 +59,15 @@ getUser(): any {
       localStorage.removeItem('user');
     }
   }
-};
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthHttpService {
-  constructor(
-    private http: HttpClient,
-    public authService: AuthService
-  ) {}
-
   getAuthHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
+    const token = this.getToken();
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': token ? `Bearer ${token}` : ''
     });
   }
-}
+};
+
 
 @Injectable({
   providedIn: 'root'
@@ -87,9 +77,7 @@ export class UserRegistrationService {
   constructor(private http: HttpClient) { }
 
   public userRegistration(userDetails: any): Observable<any> {
-    return this.http.post(apiUrl + 'users', userDetails).pipe(
-      catchError(this.handleError.bind(this))
-    );
+    return this.http.post(apiUrl + 'users', userDetails).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
@@ -125,18 +113,23 @@ export class UserLoginService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'An unexpected error occurred. Please try again later.';
+    let errorMessage = 'Something bad happened; please try again later.';
 
     if (error.error instanceof ErrorEvent) {
       // Client-side or network error
       console.error('Client-side error:', error.error.message);
       errorMessage = error.error.message;
     } else {
-      // Backend error
-      console.error(`Server error (Status ${error.status}):`, error.error);
+      // Server-side error
+      console.error(
+        `Error Status code ${error.status}, ` +
+        `Error body: ${JSON.stringify(error.error)}, ` +
+        `Error Message: ${error.error.message}`
+      );
       errorMessage = error.error.message || errorMessage; 
     }
 
+    // Return an observable with a user-facing error message
     return throwError(() => new Error(errorMessage));
   }
 }
@@ -147,12 +140,13 @@ export class UserLoginService {
 })
 export class MovieService{
   constructor(
-    private authHttpService: AuthHttpService,
+    private authHttpService: AuthService,
     private http : HttpClient){}
 
 
   public getAllMovies(): Observable<any> {
     return this.http.get(apiUrl + 'movies', { headers: this.authHttpService.getAuthHeaders() }).pipe(
+      
       map((data : any) => {
         return data.map((doc : any) => ({
           id: doc._id,
@@ -188,12 +182,12 @@ export class MovieService{
 export class UserService {
   constructor(
     private authService: AuthService,
-    private authHttpService : AuthHttpService,
+    private authHttpService : AuthService,
     private http: HttpClient,) { }
     
     public updateUser(updatedUser: any): void {
       localStorage.setItem('user', JSON.stringify(updatedUser));
-      window.location.reload()
+
   }
 
   public addFavoriteMovie(username: string, movieId: string): Observable<any> {

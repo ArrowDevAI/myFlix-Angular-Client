@@ -19,6 +19,7 @@
           "options": {
             "outputPath": "dist/my-flix-angular-client",
             "index": "src/index.html",
+            "baseHref":"/myFlix-Angular-Client/",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -34,12 +35,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
+           
           },
           "configurations": {
             "production": {
@@ -100,11 +97,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "2bcbdf32-e96e-4c50-979c-cc0106c1b67d"
+    "analytics": "2bcbdf32-e96e-4c50-979c-cc0106c1b67d",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

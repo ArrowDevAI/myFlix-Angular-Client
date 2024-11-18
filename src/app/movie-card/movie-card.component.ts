@@ -31,19 +31,19 @@ import { SynopsisComponent } from '../synopsis/synopsis.component';
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
 })
-export class MovieCardComponent {
+export class MovieCardComponent implements OnInit {
   public user: any;
   public favoriteMovies: any[] = [];
   public allMovies: any[] = [];
   public favoriteMovieList: any[] = [];
-  public noFavoriteMovies : boolean = false
+  public noFavoriteMovies = false
 
   constructor(
     private router: Router,
-    private auth: AuthService, 
-    private userData : UserService,
+    private auth: AuthService,
+    private userData: UserService,
     public movieData: MovieService,
-    public dialog : MatDialog,
+    public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) { }
 
@@ -53,54 +53,70 @@ export class MovieCardComponent {
   getAllMovies(): void {
     this.movieData.getAllMovies().subscribe((resp: any) => {
       this.allMovies = resp;
-      console.log("All Movies", this.allMovies)
       this.getFavoriteMovies();
     });
   }
 
   getFavoriteMovies(): void {
-    this.user = this.auth.getUser(); 
+    this.user = this.auth.getUser();
     if (this.user && this.user.FavoriteMovies) {
       this.favoriteMovies = this.user.FavoriteMovies;
       this.noFavoriteMovies = this.favoriteMovies.length === 0;
-      this.filterFavoriteMovies()     
+      this.filterFavoriteMovies()
     } else {
       console.log('No favorite movies available for the user.');
-      this.noFavoriteMovies = true; 
-      
+      this.noFavoriteMovies = true;
+
     }
   }
 
   filterFavoriteMovies(): void {
     if (this.allMovies.length && this.favoriteMovies.length) {
       this.favoriteMovieList = this.allMovies.filter(movie =>
-        this.favoriteMovies.includes(movie.id) 
+        this.favoriteMovies.includes(movie.id)
       );
-      console.log('Favorite Movies List:', this.favoriteMovieList);
+     
     }
   }
-  addFavoriteMovie(movieId : string) : void {
-    this.userData.addFavoriteMovie(this.user.Username, movieId).subscribe((resp:any)=>{
+  addFavoriteMovie(movieId: string): void {
+    this.userData.addFavoriteMovie(this.user?.Username, movieId).subscribe((resp: any) => {
       console.log("Movie added to favorites:", resp);
-      this.favoriteMovies.push(movieId); 
+      this.favoriteMovies.push(movieId);
       this.snackBar.open('Added to Favorites', "Ok", {
         duration: 2000
       });
       this.filterFavoriteMovies();
     })
   }
-  openGenreDialog(movie : any) : void {
-    this.dialog.open(GenreComponent, { data: {title: movie.title, genre: movie.genre}}),
-    {width: '800px'}
-    
-        }
-  openDirectorDialog(movie : any) : void {
-    this.dialog.open(DirectorComponent, { data: {title: movie.title, genre: movie.genre, director: movie.director}}),
-    {width: '800px'}
-        }
-    openSynopsisDialog(movie : any) : void {
-    this.dialog.open(SynopsisComponent, { data: {title: movie.title, genre: movie.genre, description : movie.description}}),
-    {width: '800px'}
-        }
-    
+  openGenreDialog(movie: any): void {
+    this.dialog.open(GenreComponent, {
+      data: {
+        title: movie.title,
+        genre: movie.genre
+      },
+
+      width: '800px'
+    })
+  }
+  openDirectorDialog(movie: any): void {
+    this.dialog.open(DirectorComponent, {
+      data: {
+        title: movie.title,
+        genre: movie.genre,
+        director: movie.director
+      },
+      width: '800px'
+    });
+  }
+  openSynopsisDialog(movie: any): void {
+    this.dialog.open(SynopsisComponent, {
+      data: {
+        title: movie.title,
+        genre: movie.genre,
+        description: movie.description
+      },
+      width: '800px'
+    });
+  }
+
 }

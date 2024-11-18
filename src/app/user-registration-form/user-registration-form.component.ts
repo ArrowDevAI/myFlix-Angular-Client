@@ -1,14 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { AuthHttpService, AuthService, UserRegistrationService } from '../fetch-api-data.service';
+import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { UserLoginFormComponent } from '../user-login-form/user-login-form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,7 +28,8 @@ import { DatePipe } from '@angular/common';
     MatButtonModule,
 
   ],
-  providers: [DatePipe]
+  providers: [DatePipe,
+  ]
 })
 export class UserRegistrationFormComponent implements OnInit {
 
@@ -39,33 +38,24 @@ export class UserRegistrationFormComponent implements OnInit {
   constructor( 
 
     private router: Router,
-    private datePipe : DatePipe,
     public fetchApiData: UserRegistrationService,
-    public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
+    @Optional() public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
     public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   registerUser(): void {
-    // const formattedDate = this.datePipe.transform(this.userData.Birthday, 'MM/dd/yyyy')
-    // const userData = {
-    //   ...this.userData,
-    //   Birthday: formattedDate
-    // };
-    
-    // console.log("User Data with updated Birthdy: ", userData)
 
     this.fetchApiData.userRegistration(this.userData).subscribe({
       next: (result) => {
-        console.log(result)
-        this.snackBar.open(result.message, 'OK', { duration: 8000 });
+        this.snackBar.open(result.message, 'OK', { duration: 5000 });
         this.dialogRef.close();
         this.router.navigate(['welcome']);
       },
       error: (error) => {
         const errorMessage = error.message || 'An error occurred. Please try again.';
-        this.snackBar.open(errorMessage, 'OK', { duration: 8000 });
+        this.snackBar.open(errorMessage, 'OK', { duration: 5000 });
       }
 
     })

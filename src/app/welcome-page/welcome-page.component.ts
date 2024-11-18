@@ -13,7 +13,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../fetch-api-data.service';
 
-
 @Component({
   selector: 'app-welcome-page',
   standalone: true,
@@ -49,19 +48,14 @@ export class WelcomePageComponent implements OnInit {
     });
   }
   openLoginDialog(): void {
-    this.user = this.auth.getUser()
-    if(this.user && this.user !== 'undefined')
-      this.router.navigate(['main'])
-    else
-    this.dialog.open(UserLoginFormComponent, {
-      width: '500'
-    });
+    this.user = this.auth.getUser();
+    if (this.user && this.user.id) {
+      this.router.navigate(['main']);
+    } else {
+      this.dialog.open(UserLoginFormComponent, {
+        width: '500px'
+      });
+    }
   }
-
-  openAllMovies(): void {
-    this.dialog.open(MovieCardComponent, {
-      width: '280px'
-    })
-  }
-
+  
 }

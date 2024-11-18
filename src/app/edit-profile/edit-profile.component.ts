@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -28,7 +28,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss'
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit {
 
   @Input() userDetails = { Username: '', Email: '', Birthday: '' }
 

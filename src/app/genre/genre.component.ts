@@ -1,13 +1,15 @@
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-genre',
   standalone: true,
   imports: [
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
   ],
+  
   templateUrl: './genre.component.html',
   styleUrl: './genre.component.scss'
 })

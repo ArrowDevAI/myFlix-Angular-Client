@@ -5,19 +5,19 @@
     <p>
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="userDetails.Username" placeholder="{{user.Username}}"> 
+        <input matInput [(ngModel)]="userDetails.Username" placeholder="{{user?.Username}}"> 
       </mat-form-field>
     </p>
     <p>
       <mat-form-field appearance="fill">
         <mat-label>Birthday</mat-label>
-        <input matInput [(ngModel)]="userDetails.Birthday" type="date" placeholder="{{user.Birthday}}">
+        <input matInput [(ngModel)]="userDetails.Birthday" type="date" placeholder="{{user?.Birthday}}">
       </mat-form-field>
     </p>
     <p>
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="userDetails.Email" type="email" placeholder="{{user.Email}}">
+        <input matInput [(ngModel)]="userDetails.Email" type="email" placeholder="{{user?.Email}}">
       </mat-form-field>
     </p>
     <mat-dialog-actions>

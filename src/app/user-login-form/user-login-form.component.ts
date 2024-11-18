@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AuthService, UserLoginService } from '../fetch-api-data.service';
 import {MatCardModule } from '@angular/material/card';
@@ -36,12 +36,11 @@ export class UserLoginFormComponent implements OnInit {
 constructor (
   private router: Router,
   public fetchApiData: UserLoginService,
-  public dialogRef: MatDialogRef<UserLoginFormComponent>,
+  @Optional() public dialogRef: MatDialogRef<UserLoginFormComponent>,
   public auth: AuthService,
   public snackBar: MatSnackBar ) {}
 
-  ngOnInit(): void {
-  }  
+  ngOnInit(): void {}  
 
   // loginUser() : void {
   //   this.fetchApiData.userLogin(this.userData).subscribe((result)=>{
@@ -59,7 +58,6 @@ constructor (
    
       this.fetchApiData.userLogin(this.userData).subscribe({
         next: (result) => {
-          console.log(result)
           this.auth.setToken(result.token)
           this.auth.setUser(result.user)
           this.dialogRef.close();
